@@ -1,0 +1,54 @@
+# Game_Judge CMake config file
+#
+# This file sets the following variables:
+# Game_Judge_FOUND - Always TRUE.
+# Game_Judge_INCLUDE_DIRS - Directories containing the Game_Judge include files.
+# Game_Judge_IDL_DIRS - Directories containing the Game_Judge IDL files.
+# Game_Judge_LIBRARIES - Libraries needed to use Game_Judge.
+# Game_Judge_DEFINITIONS - Compiler flags for Game_Judge.
+# Game_Judge_VERSION - The version of Game_Judge found.
+# Game_Judge_VERSION_MAJOR - The major version of Game_Judge found.
+# Game_Judge_VERSION_MINOR - The minor version of Game_Judge found.
+# Game_Judge_VERSION_REVISION - The revision version of Game_Judge found.
+# Game_Judge_VERSION_CANDIDATE - The candidate version of Game_Judge found.
+
+message(STATUS "Found Game_Judge-@PROJECT_VERSION@")
+set(Game_Judge_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(Game_Judge_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(Game_Judge_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(Game_Judge_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(Game_Judge_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(Game_Judge_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(Game_Judge_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(Game_Judge_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(Game_Judge_VERSION @PROJECT_VERSION@)
+set(Game_Judge_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(Game_Judge_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(Game_Judge_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(Game_Judge_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
