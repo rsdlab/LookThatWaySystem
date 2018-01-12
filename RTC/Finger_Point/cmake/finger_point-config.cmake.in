@@ -1,0 +1,54 @@
+# Finger_Point CMake config file
+#
+# This file sets the following variables:
+# Finger_Point_FOUND - Always TRUE.
+# Finger_Point_INCLUDE_DIRS - Directories containing the Finger_Point include files.
+# Finger_Point_IDL_DIRS - Directories containing the Finger_Point IDL files.
+# Finger_Point_LIBRARIES - Libraries needed to use Finger_Point.
+# Finger_Point_DEFINITIONS - Compiler flags for Finger_Point.
+# Finger_Point_VERSION - The version of Finger_Point found.
+# Finger_Point_VERSION_MAJOR - The major version of Finger_Point found.
+# Finger_Point_VERSION_MINOR - The minor version of Finger_Point found.
+# Finger_Point_VERSION_REVISION - The revision version of Finger_Point found.
+# Finger_Point_VERSION_CANDIDATE - The candidate version of Finger_Point found.
+
+message(STATUS "Found Finger_Point-@PROJECT_VERSION@")
+set(Finger_Point_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(Finger_Point_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(Finger_Point_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(Finger_Point_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(Finger_Point_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(Finger_Point_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(Finger_Point_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(Finger_Point_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(Finger_Point_VERSION @PROJECT_VERSION@)
+set(Finger_Point_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(Finger_Point_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(Finger_Point_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(Finger_Point_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+

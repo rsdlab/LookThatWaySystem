@@ -1,0 +1,54 @@
+# communication CMake config file
+#
+# This file sets the following variables:
+# communication_FOUND - Always TRUE.
+# communication_INCLUDE_DIRS - Directories containing the communication include files.
+# communication_IDL_DIRS - Directories containing the communication IDL files.
+# communication_LIBRARIES - Libraries needed to use communication.
+# communication_DEFINITIONS - Compiler flags for communication.
+# communication_VERSION - The version of communication found.
+# communication_VERSION_MAJOR - The major version of communication found.
+# communication_VERSION_MINOR - The minor version of communication found.
+# communication_VERSION_REVISION - The revision version of communication found.
+# communication_VERSION_CANDIDATE - The candidate version of communication found.
+
+message(STATUS "Found communication-@PROJECT_VERSION@")
+set(communication_FOUND TRUE)
+
+find_package(<dependency> REQUIRED)
+
+#set(communication_INCLUDE_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@"
+#    ${<dependency>_INCLUDE_DIRS}
+#    )
+#
+#set(communication_IDL_DIRS
+#    "@CMAKE_INSTALL_PREFIX@/include/@PROJECT_NAME_LOWER@-@PROJECT_VERSION_MAJOR@/idl")
+set(communication_INCLUDE_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@"
+    ${<dependency>_INCLUDE_DIRS}
+    )
+set(communication_IDL_DIRS
+    "@CMAKE_INSTALL_PREFIX@/include/@CPACK_PACKAGE_FILE_NAME@/idl")
+
+
+if(WIN32)
+    set(communication_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_STATIC_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+else(WIN32)
+    set(communication_LIBRARIES
+        "@CMAKE_INSTALL_PREFIX@/@LIB_INSTALL_DIR@/@CMAKE_SHARED_LIBRARY_PREFIX@@PROJECT_NAME_LOWER@@CMAKE_SHARED_LIBRARY_SUFFIX@"
+        ${<dependency>_LIBRARIES}
+        )
+endif(WIN32)
+
+set(communication_DEFINITIONS ${<dependency>_DEFINITIONS})
+
+set(communication_VERSION @PROJECT_VERSION@)
+set(communication_VERSION_MAJOR @PROJECT_VERSION_MAJOR@)
+set(communication_VERSION_MINOR @PROJECT_VERSION_MINOR@)
+set(communication_VERSION_REVISION @PROJECT_VERSION_REVISION@)
+set(communication_VERSION_CANDIDATE @PROJECT_VERSION_CANDIDATE@)
+
